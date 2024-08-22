@@ -56,7 +56,7 @@ const Main = () => {
                   >
                     <img
                       className="block w-full mb-5"
-                      src={posts[0].imageUrl}
+                      src={posts[0].image}
                       alt=""
                     />
                     <h4 className="text-3xl font-semibold text-[#424d51] group-hover:text-[#80b4ab] mb-5">

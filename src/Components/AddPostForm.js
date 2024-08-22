@@ -5,7 +5,7 @@ import axios from "axios";
 function Form() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [image, setImage] = useState("");
   const [comments, setComments] = useState("");
   const API_URL = "https://blog-backend-ap5h.onrender.com/api/posts";
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ function Form() {
     const newPost = {
       title,
       content,
-      imageUrl,
+      image,
       comments: comments.split('\n'), // Split comments by new lines
     };
 
@@ -102,9 +102,9 @@ function Form() {
                     <input
                       className="w-full px-4 py-2.5 text-base text-coolGray-900 font-normal outline-none focus:border-green-500 border border-coolGray-200 rounded-lg shadow-input"
                       type="text"
-                      placeholder="Enter image URL"
-                      value={imageUrl}
-                      onChange={(e) => setImageUrl(e.target.value)}
+                      placeholder="Enter image "
+                      value={image}
+                      onChange={(e) => setImage(e.target.value)}
                     />
                   </div>
                 </div>

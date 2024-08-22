@@ -107,7 +107,7 @@ function PostList() {
         </div>
         <img
           className="w-full h-64 lg:h-96 mx-auto rounded-2xl mb-12 object-cover"
-          src={postsDetails.imageUrl}
+          src={postsDetails.image}
           alt="Blog Post"
         />
 
