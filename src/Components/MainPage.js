@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { getPosts } from "../Api.js";
 
 // Utility function to truncate content to approximately 20 words
 const truncateContent = (content) => {
@@ -19,10 +19,8 @@ const Main = () => {
     // Fetch posts from the backend
     const fetchPosts = async () => {
       try {
-        const response = await axios.get(
-          "https://blog-backend-ap5h.onrender.com/api/posts"
-        );
-        setPosts(response.data);
+        const fetchedPosts = await getPosts();
+        setPosts(fetchedPosts);
       } catch (error) {
         console.error("Error fetching posts:", error);
       }
@@ -38,10 +36,10 @@ const Main = () => {
           <div className="max-w-2xl mx-auto mb-15 text-center lg:mb-9">
             <h1 className="font-heading text-5xl xs:text-2xl md:text-7xl font-bold">
               <span className="custom-break pr-4 font-serif italic text-[#424d51]">
-                The Insightful
+                 Welcome to the 
               </span>
               <span className="custom-break font-serif italic text-[#424d51]">
-                Times
+                 Insightful Times 
               </span>
             </h1>
           </div>
@@ -50,14 +48,11 @@ const Main = () => {
             {posts.length > 0 && (
               <>
                 <div className="w-full lg:w-1/2 px-4 mb-12 lg:mb-0">
-                  <Link
-                    className="block group w-full"
-                    to={`/posts/${posts[0].id}`}
-                  >
+                  <Link className="block group w-full" to={`/posts/${posts[0].id}`}>
                     <img
                       className="block w-full mb-5"
                       src={posts[0].image}
-                      alt=""
+                      alt={posts[0].title}
                     />
                     <h4 className="text-3xl font-semibold text-[#424d51] group-hover:text-[#80b4ab] mb-5">
                       {posts[0].title}
@@ -69,12 +64,8 @@ const Main = () => {
                 </div>
                 <div className="w-full lg:w-1/2 px-4">
                   {posts.slice(1, 4).map((post) => (
-                    <Link
-                      className="md:flex group mb-8"
-                      to={`/posts/${post.id}`}
-                      key={post.id}
-                    >
-                      <img className="w-48 h-40" src={post.imageUrl} alt="" />
+                    <Link className="md:flex group mb-8" to={`/posts/${post.id}`} key={post.id}>
+                      <img className="w-48 h-40" src={post.image} alt={post.title} />
                       <div className="mt-4 md:mt-0 md:ml-6 pt-2">
                         <h4 className="text-xl font-semibold text-[#424d51] group-hover:text-[#80b4ab]">
                           {post.title}
@@ -100,8 +91,8 @@ const Main = () => {
                   <Link className="block px-4 group" to={`/posts/${post.id}`}>
                     <img
                       className="block w-full h-40 mb-4 object-cover rounded-lg"
-                      src={post.imageUrl}
-                      alt=""
+                      src={post.image}
+                      alt={post.title}
                     />
                     <h4 className="text-xl font-semibold text-[#424d51] group-hover:text-[#80b4ab] mb-4">
                       {post.title}
@@ -116,7 +107,7 @@ const Main = () => {
           )}
 
           <div className="text-center">
-            <div 
+            <div
               onClick={() => setShowContent(!showContent)}
               className="relative group inline-block py-4 px-7 font-semibold text-[#424d51] hover:text-[#f4e9e0] rounded-full bg-[#80b4ab] transition duration-300 overflow-hidden cursor-pointer"
             >
