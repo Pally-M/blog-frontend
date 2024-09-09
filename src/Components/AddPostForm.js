@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { addPost } from "../Api"; // Adjust the import path according to your project structure
 
 function Form() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState("");
   const [comments, setComments] = useState("");
-  const API_URL = "https://blog-backend-ap5h.onrender.com/api/posts";
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -21,12 +20,12 @@ function Form() {
     };
 
     try {
-      const response = await axios.post(API_URL, newPost);
+      const response = await addPost(newPost); // Use the addPost function
 
-      if (response.status === 201) {
+      if (response) {
         navigate("/");
       } else {
-        console.error("Failed to create post:", response.status, response.data);
+        console.error("Failed to create post");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -102,7 +101,7 @@ function Form() {
                     <input
                       className="w-full px-4 py-2.5 text-base text-coolGray-900 font-normal outline-none focus:border-green-500 border border-coolGray-200 rounded-lg shadow-input"
                       type="text"
-                      placeholder="Enter image "
+                      placeholder="Enter image URL"
                       value={image}
                       onChange={(e) => setImage(e.target.value)}
                     />
@@ -152,5 +151,3 @@ function Form() {
 }
 
 export default Form;
-
-
